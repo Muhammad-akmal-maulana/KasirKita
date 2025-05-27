@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Produk</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="daftar-produk-body">
+    <%- include('layout/sidebar') %>
+    <div style="display: flex; justify-content: space-between;">
+            <h1>Daftar Produk</h1>
+            <form method="get" action="/produk" style="display: flex; align-items: center;">
+                <input type="text" name="search" placeholder="Cari produk..."
+                    value="<%= typeof search !== 'undefined' ? search : '' %>" class="input">
+                <button type="submit"  style="margin: 8px 0px;" class="btn-cart">
+                    <img src="/asset/zoom-icon.svg" alt="zoom" class="icon">
+                </button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Gambar Produk</th>
+                    <th>Nama Produk</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Upate and Delete</th>
+                </tr>
+            </thead>
+            <% produkList.forEach( (produk)=> { %>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">
+                            <img src="/img/<%= produk.foto %>" alt="Foto Produk" width="100" class="gambar-produk">
+                        </td>
+                        <td rowspan="2">
+                            <%= produk.nama_produk %>
+                        </td>
+                        <td rowspan="2">
+                            <%= produk.harga %>
+                        </td>
+                        <td rowspan="2">
+                            <%= produk.stok %>
+                        </td>
+                        <td>
+                            <a href="/produk/edit/<%= produk.id %>" class="btn btn-primary">Update</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form action="/produk/delete/<%= produk.id %>" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-primary btn-delete"
+                                    onclick="return confirm('Yakin ingin menghapus produk ini?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+                <% }); %>
+        </table>
+
+        <div style="margin-top:16px; display:flex; gap:8px;">
+            <% for(let i=1; i<=totalPages; i++) { %>
+                <% if(i===page) { %>
+                    <span style="font-weight:bold;">
+                        <%= i %>
+                    </span>
+                    <% } else { %>
+                        <a href="/produk?page=<%= i %>&search=<%= search %>">
+                            <%= i %>
+                        </a>
+                        <% } %>
+                            <% } %>
+        </div>
+</body>
+
+</html>

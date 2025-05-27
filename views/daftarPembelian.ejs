@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pembelian</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="daftar-pembelian-body" style="overflow: hidden;">
+    <%- include('layout/sidebar') %>
+        <div class="content-container" style="max-width: 90%; justify-content: start;">
+            <div style="display: flex;  justify-content: space-between; width: 100%; margin-bottom: 20px;">
+                <form action="/checkout/generate/pdf" method="GET" class="button">
+                    <button type="submit">Generate PDF</button>
+                </form>
+                <form action="/pembelian/clear" method="POST"
+                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus semua data pembelian? Tindakan ini tidak dapat dibatalkan!');">
+                    <button type="submit" class="btn-delete">Clear</button>
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Pembeli</th>
+                        <th>Nama Produk</th>
+                        <th>Tanggal Pembelian</th>
+                        <th>Jumlah</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% pembelianList.forEach((pembelian, index)=> { %>
+                        <tr>
+                            <td>
+                                <%= index + 1 %>
+                            </td>
+                            <td>
+                                <%= pembelian.pelanggan_id?.nama || '-' %>
+                            </td>
+                            <td>
+                                <%= pembelian.detail?.produk_id?.nama_produk || '-' %>
+                            </td>
+                            <td>
+                                <%= pembelian.tgl_penjualan ? pembelian.tgl_penjualan.toLocaleDateString('id-ID') : '-'
+                                    %>
+                            </td>
+                            <td>
+                                <%= pembelian.detail?.jmlh_produk || '-' %>
+                            </td>
+                            <td>
+                                <%= pembelian.detail?.subtotal || '-' %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+</body>
+
+</html>

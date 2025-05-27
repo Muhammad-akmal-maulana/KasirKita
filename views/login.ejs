@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="login-body" style="display: flex;">
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/auth/login" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="input" placeholder="Enter Username" required>
+
+            <label for="password">Password</label>
+            <div class="flex password">
+                <input type="password" id="password" name="password" class="input-password" placeholder="Enter Password" required>
+                <img src="/asset/eye-close.png" alt="eye-close" id="eye-icon">
+            </div>
+            
+            <button type="submit">Masuk</button>
+
+            <div class="flex">
+                <p>Belum punya akun?</p>
+                <a href="/auth/register">Buat akun</a>
+            </div>
+        </form>
+    </div>
+    <script src="/js/showPassword.js"></script>
+</body>
+
+</html>

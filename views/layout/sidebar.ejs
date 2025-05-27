@@ -1,0 +1,62 @@
+<button id="toggle-sidebar">☰</button>
+
+<% if (user.role==='admin' || user.role==='petugas' ) { %>
+  <a href="/produk">
+    <button class="toggle" id="btn-list"> <!-- button -->
+      <img src="/asset/box-icon.svg" alt="" class="icon">
+    </button>
+  </a>
+  <a href="/produk/tambah">
+    <button class="toggle" id="btn-add"> <!-- button -->
+      <img src="/asset/add-box.svg" alt="" class="icon">
+    </button>
+  </a>
+  <a href="/pembelian">
+    <button class="toggle" id="btn-pembelian"> <!-- button -->
+      <img src="/asset/time-icon.svg" alt="" class="icon">
+    </button>
+  </a>
+  <!-- pengguna -->
+  <% } else if (user.role==='pelanggan' ) { %>
+    <a href="/produk/pelanggan"> <!-- button -->
+      <button class="toggle" id="btn-list-pelanggan">
+        <img src="/asset/box-icon.svg" alt="" class="icon">
+      </button>
+    </a>
+    <a href="/pembelian/keranjang">
+      <button class="toggle" id="btn-keranjang">
+        <img src="/asset/cart-icon.svg" alt="" class="icon">
+      </button>
+    </a>
+    <% } %>
+
+      <aside class="sidebar" id="sidebar">
+        <h1 id="sidebar-title">Aplikasi Kasir</h1>
+        <nav>
+          <ul id="ul-sidebar">
+            <% if (user.role==='admin' || user.role==='petugas' ) { %>
+              <li id="li-sidebar2">
+                <a href="/produk">Daftar Produk</a>
+              </li>
+              <li class="li-sidebar2">
+                <a href="/produk/tambah">Tambah Produk</a>
+              </li>
+              <li class="li-sidebar2">
+                <a href="/pembelian">Riawayat Pembelian</a>
+              </li>
+
+              <% } else if (user.role==='pelanggan' ) { %>
+                <li class="li-sidebar3"> <!-- button -->
+                  <a href="/produk/pelanggan">Daftar Produk Pelanggan</a>
+                </li>
+                <li class="li-sidebar3">
+                  <a href="/pembelian/keranjang">Keranjang</a>
+                </li>
+                <% } %>
+          </ul>
+        </nav>
+        <form action="/auth/logout" method="GET" class="logout-form">
+          <button type="submit" class="btn-delete">Logout</button>
+        </form>
+      </aside>
+      <script src="/js/hideSidebar.js"></script>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Keranjang</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <%- include('layout/sidebar') %>
+        <h2>Keranjang Saya</h2>
+        <div>
+            <form action="/pembelian/keranjang/checkout" method="POST">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nama Produk</th>
+                            <th>Harga</th>
+                            <th>tersedia</th>
+                            <th>Jumlah</th>
+                            <th>delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% items.forEach(item=> {
+                            const stok = item.produk_id.stok;
+                            const tersedia = stok > 0 ? 'Tersedia' : 'Tidak Tersedia';
+                            const disableInput = stok > 0 ? '' : 'disabled';
+                            %>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkedItems" class="input check-barang"
+                                        style="width: 30px;" value="<%= item._id %>"
+                                        data-harga="<%= item.produk_id.harga %>" <%=stok> 0 ? '' : 'disabled' %>>
+                                </td>
+                                <td>
+                                    <%= item.produk_id.nama_produk %>
+                                </td>
+                                <td>
+                                    <%= item.produk_id.harga %>
+                                </td>
+                                <td>
+                                    <span class="<%= stok > 0 ? 'text-green' : 'text-red' %>">
+                                        <%= tersedia %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <input type="number" name="jumlah_<%= item._id %>" min="1" max="<%= stok %>"
+                                        value="<%= item.jumlah %>" class="input jumlah-barang" style="width:70px;"
+                                        data-id="<%= item._id %>" <%=disableInput %>>
+                                </td>
+                                <td>
+                                    <form action="/pembelian/keranjang/delete/<%= item._id %>" method="POST"
+                                        style="display:inline;">
+                                        <button type="submit"
+                                            onclick="return confirm('Yakin hapus item ini dari keranjang?')"
+                                            class="btn-delete" style="width: 70px;">
+                                            <img src="/asset/trash-icon.svg" alt="boruto" class="icon btn-cart">
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                                <tr>
+                                    <form action="/pembelian/keranjang/checkout" method="POST">
+                                        <td colspan="5">
+                                            <strong>Total Pembayaran:</strong>
+                                        </td>
+                                        <td id="total-harga">0</td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <button type="submit">Check Out</button>
+                                    </td>
+                                </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <script src="/js/totalHarga.js"></script>
+</body>
+
+</html>

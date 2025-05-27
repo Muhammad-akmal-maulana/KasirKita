@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Produk</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="edit-produk-body">
+    <%- include('layout/sidebar') %>
+    <h2>Edit Produk</h2>
+    <form action="/produk/edit/<%= produk.id %>" method="POST" enctype="multipart/form-data">
+    <div class="flex tambah-produk-container">
+        <div class="add-image">
+            <div class="label-custom-container">
+                <label for="foto" id="custom-label">Ganti Foto</label>
+                <input type="file" id="foto" name="foto" class="input-gambar">
+            </div>
+            <img src="/img/<%= produk.foto %>" id="gambar-produk">
+        </div>
+        <div class="upload-container">
+                <label for="nama_produk">Nama Produk</label>
+                <input type="text" id="nama_produk" name="nama_produk" class="input" placeholder="Nama Produk" value="<%= produk.nama_produk %>" required>
+
+                <label for="stok">Stok</label>
+                <input type="number" id="stok" name="stok" class="input" placeholder="Stok Produk" value="<%= produk.stok %>" required>
+
+                <label for="harga">Harga</label>
+                <input type="number" id="harga" name="harga" class="input" placeholder="Harga" value="<%= produk.harga %>" required>
+
+                <button type="submit">Edit</button>
+            </div>
+        </div>
+    </form>
+    <script src="/js/customInputFile.js"></script>
+</body>
+</html>

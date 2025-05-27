@@ -33,24 +33,20 @@
             <% produkList.forEach( (produk)=> { %>
                 <tbody>
                     <tr>
-                        <td rowspan="2">
+                        <td>
                             <img src="/img/<%= produk.foto %>" alt="Foto Produk" width="100" class="gambar-produk">
                         </td>
-                        <td rowspan="2">
+                        <td>
                             <%= produk.nama_produk %>
                         </td>
-                        <td rowspan="2">
+                        <td>
                             <%= produk.harga %>
                         </td>
-                        <td rowspan="2">
+                        <td>
                             <%= produk.stok %>
                         </td>
                         <td>
                             <a href="/produk/edit/<%= produk.id %>" class="btn btn-primary">Update</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             <form action="/produk/delete/<%= produk.id %>" method="POST" style="display:inline;">
                                 <button type="submit" class="btn btn-primary btn-delete"
                                     onclick="return confirm('Yakin ingin menghapus produk ini?')">Delete</button>
